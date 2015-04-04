@@ -7,6 +7,7 @@ sudo apt-get install -y zsh git vim-nox tmux rbenv
 # git banalities
 git config --global user.name "Ben Axnick"
 git config --global user.email ben@axnick.com.au
+git config --global push.default simple
 
 # initialize homeshick repos
 mkdir -p $HOME/.homesick/repos
