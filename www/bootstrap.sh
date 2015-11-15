@@ -62,11 +62,12 @@ fi
 ssh-add -L | grep "LjftvPmaEFl69GkxMDhWd9ctr" || (echo "SSH key not loaded" && exit 1)
 
 # fresh clone if required
-yadm clone git@bitbucket.org:baxnick/settings.git && \
-  yadm checkout -f && \
-  yadm perms && \
-  yadm alt
+yadm clone git@bitbucket.org:baxnick/settings.git
 
-# always update
-yadm pull --rebase &&
-  yadm submodule update --init --recursive
+# always checkout and update
+yadm checkout -f && \
+  yadm pull --rebase && \
+  yadm submodule && \
+  yadm submodule update --init --recursive \
+  yadm alt && \
+  yadm perms
