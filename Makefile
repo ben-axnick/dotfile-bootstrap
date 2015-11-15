@@ -10,7 +10,7 @@ push:
 	docker push $(PROJECT):latest
 
 run:
-	docker run --rm -it -p "8080:8080" $(IMAGE)
+	docker run --rm -it -p "80:8080" $(IMAGE)
 
 tag:
 	git tag $(TAG)
