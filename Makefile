@@ -1,4 +1,4 @@
-TAG=0.0.0
+TAG=0.0.1
 PROJECT=bentheax/dotfile-bootstrap
 IMAGE=$(PROJECT):$(TAG)
 
