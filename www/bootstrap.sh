@@ -68,6 +68,6 @@ yadm clone git@bitbucket.org:baxnick/settings.git
 yadm checkout -f && \
   yadm pull --rebase && \
   yadm submodule && \
-  yadm submodule update --init --recursive \
+  yadm submodule update --init --recursive && \
   yadm alt && \
   yadm perms
