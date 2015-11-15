@@ -1,0 +1,9 @@
+application {
+  name = "dotfile-bootstrap"
+  type = "docker-external
+}
+
+customization "docker" {
+  image = "bentheax/dotfile-bootstrap:latest"
+  run_args = "-p 80:8080"
+}
