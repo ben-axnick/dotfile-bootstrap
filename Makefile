@@ -7,6 +7,7 @@ build:
 
 push:
 	docker push $(IMAGE)
+	docker push $(PROJECT):latest
 
 run:
 	docker run --rm -it -p "8080:8080" $(IMAGE)
