@@ -1,0 +1,4 @@
+dotfile-bootstrap:
+  image: "${IMAGE}"
+  ports:
+    - "80:8080"

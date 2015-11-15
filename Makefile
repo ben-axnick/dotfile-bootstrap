@@ -11,7 +11,10 @@ push:
 	docker push $(PROJECT):latest
 
 run:
-	docker run --rm -it -p "80:8080" $(IMAGE)
+	IMAGE=$(IMAGE) docker-compose up
+
+run-daemon:
+	IMAGE=$(IMAGE) docker-compose up -d
 
 tag:
 	git tag $(TAG)
