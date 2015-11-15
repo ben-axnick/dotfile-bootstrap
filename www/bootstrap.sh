@@ -65,7 +65,8 @@ ssh-add -l | grep "8a:db:c8:ca" || (echo "SSH key not loaded" && exit 1)
 yadm clone git@bitbucket.org:baxnick/settings.git && \
   yadm checkout -f && \
   yadm perms && \
-  yadm alt && \
+  yadm alt
 
-# always update submodules
-yadm submodule update --init --recursive
+# always update
+yadm pull --rebase &&
+  yadm submodule update --init --recursive
