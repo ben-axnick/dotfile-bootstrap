@@ -38,7 +38,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     VERSION="1.02-1"
     curl -fLO https://dl.bintray.com/thelocehiliosan/rpm/yadm-${VERSION}.noarch.rpm
     sudo alien -k yadm-${VERSION}.noarch.rpm
-    sudo dpkg -i yadm-${VERSION}_all.deb
+    sudo dpkg -i yadm_${VERSION}_all.deb
   fi
 fi
 
