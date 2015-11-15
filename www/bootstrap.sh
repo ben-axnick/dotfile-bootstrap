@@ -59,7 +59,7 @@ fi
 
 ## Clone dotfiles
 
-ssh-add -l | grep "8a:db:c8:ca" || (echo "SSH key not loaded" && exit 1)
+ssh-add -L | grep "LjftvPmaEFl69GkxMDhWd9ctr" || (echo "SSH key not loaded" && exit 1)
 
 # fresh clone if required
 yadm clone git@bitbucket.org:baxnick/settings.git && \
