@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir -p ~/.vim/swapfiles
+mkdir -p ~/.yankring
+
 ## OSX only steps
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
