@@ -1,42 +1,68 @@
-export HOMESHICK_PATH="$HOME/.homesick/repos/homeshick"
-export DOTFILES_PATH="$HOME/.homesick/repos/dotfiles"
+#!/bin/bash
 
-# packages I can't live without
-sudo apt-get install -y zsh git vim-nox tmux rbenv
+## OSX only steps
 
-# git banalities
-git config --global user.name "Ben Axnick"
-git config --global user.email ben@axnick.com.au
-git config --global push.default simple
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "Doing OSX install of yadm"
 
-# initialize homeshick repos
-mkdir -p $HOME/.homesick/repos
-git clone git://github.com/andsens/homeshick.git $HOMESHICK_PATH
-git clone https://baxnick@bitbucket.org/baxnick/settings.git $DOTFILES_PATH
+  # Brew can be fiddly, install separately:
+  # ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  hash brew 2>/dev/null || (echo "install brew first" && exit 1)
 
-$HOMESHICK_PATH/bin/homeshick link -f
+  if hash yadm 2>/dev/null; then
+    echo "yadm appears to be installed"
+  else
+    brew tap TheLocehiliosan/yadm
+    brew update
+    brew install git yadm
+  fi
+fi
 
-printf '\nsource "$HOME/.homesick/repos/homeshick/homeshick.sh"' >> $HOME/.bashrc
+## Other OS
 
-gpg -d ~/.ssh/id_rsa.gpg > ~/.ssh/id_rsa
- 
-chmod 600 ~/.ssh/*
-chmod 600 ~/.gnupg/*
-chmod 600 ~/.aws/*
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  echo "Doing Debian install of yadm"
 
-eval "$(ssh-agent)"
-ssh-add
-ssh-add -l
+  if hash yadm 2>/dev/null; then
+    echo "yadm appears to be installed"
+  else
+    echo "installing git"
+    sudo apt-get install -y git
 
-# pre-accept github.com, potentially dangerous as fingerprint not verified
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+    echo "installing yadm"
+    sudo apt-get install alien dpkg-dev debhelper build-essential
 
-cd $DOTFILES_PATH
-git submodule update --init --recursive
-cd $HOME
+    VERSION="1.02-1"
+    curl -fLO https://dl.bintray.com/thelocehiliosan/rpm/yadm-${VERSION}.noarch.rpm
+    sudo alien -k yadm-${VERSION}.noarch.rpm
+    sudo dpkg -i yadm-${VERSION}_all.deb
+  fi
+fi
 
-mkdir $HOME/.yankring
+# Have ensured that yadm is available
+hash yadm 2>/dev/null || (echo "yadm install failed" && exit 1)
 
-$HOMESHICK_PATH/bin/homeshick link -f
+## Extra packages
 
-chsh -s /usr/bin/zsh
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "getting some important extra brew packages"
+  brew install zsh tmux vim
+fi
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  echo "installing some essential packages"
+  sudo apt-get install -y zsh vim-nox tmux
+fi
+
+## Clone dotfiles
+
+ssh-add -l | grep "8a:db:c8:ca" || (echo "SSH key not loaded" && exit 1)
+
+# fresh clone if required
+yadm clone git@bitbucket.org:baxnick/settings.git && \
+  yadm checkout -f && \
+  yadm perms && \
+  yadm alt && \
+
+# always update submodules
+yadm submodule update --init --recursive
