@@ -1,6 +1,6 @@
 application {
   name = "dotfile-bootstrap"
-  type = "docker-external
+  type = "docker-external"
 }
 
 customization "docker" {
