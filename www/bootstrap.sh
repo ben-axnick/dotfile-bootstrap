@@ -49,12 +49,12 @@ hash yadm 2>/dev/null || (echo "yadm install failed" && exit 1)
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "getting some important extra brew packages"
-  brew install zsh tmux vim
+  brew install zsh tmux vim ack
 fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   echo "installing some essential packages"
-  sudo apt-get install -y zsh vim-nox tmux
+  sudo apt-get install -y zsh vim-nox tmux ack-grep
 fi
 
 ## Clone dotfiles
