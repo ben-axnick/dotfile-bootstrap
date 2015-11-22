@@ -71,3 +71,26 @@ yadm checkout -f && \
   yadm submodule update --init --recursive && \
   yadm alt && \
   yadm perms
+
+# Download Hub
+if [ ! -e "$HOME/.bin/hub" ]; then
+  HUB_VERSION=2.2.2
+  HUB_DOWNLOAD_URL=https://github.com/github/hub/releases/download
+  HUB_OS=hub-linux-amd64
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    HUB_OS=hub-darwin-amd64
+  fi
+
+  FULL_URL=${HUB_DOWNLOAD_URL}/v${HUB_VERSION}/${HUB_OS}-${HUB_VERSION}.tgz
+
+  echo "Downloading Hub ${HUB_VERSION}"
+
+  curl -fL ${FULL_URL} > /tmp/hub.tgz && \
+    tar zxf /tmp/hub.tgz -C /tmp && \
+    mv /tmp/${HUB_OS}-${HUB_VERSION}/bin/hub ~/.bin/hub
+
+  rm -Rf /tmp/hub*
+else
+  echo "Hub exists."
+fi
