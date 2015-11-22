@@ -1,3 +1,7 @@
+# Can I copy credentials and run on OSX?
+
+Why yes, yes I can
+
 # What does this do?
 
 Provides a script I can curl at bootstrap.axnick.com.au to setup the rest of my
